@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.crudexample.springboot.exception.ResourceNotFoundException;
 import com.crudexample.springboot.model.Employee;
 import com.crudexample.springboot.repository.EmployeeRepository;
+import com.crudexample.springboot.service.EmployeeService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -32,12 +33,12 @@ public class EmployeeController {
 	
 	
 	private static final Logger log = LoggerFactory.getLogger(EmployeeController.class);
-
 	
-
-
 	@Autowired
 	private EmployeeRepository employeeRepository; 
+	
+	@Autowired
+	private EmployeeService service; 
 	
 	//get employees
 	
@@ -55,9 +56,15 @@ public class EmployeeController {
         return ResponseEntity.ok().body(employee);
     }
 	
+	@GetMapping("/getEmployeeByName/{fname}")
+	public Employee findByFirstName(@PathVariable String fname) {
+		return service.getEmployeeByName(fname);
+	}
+	
 	@PostMapping("employees")
 	//save employee
 	public Employee createEmployee(@RequestBody Employee employee) {
+		employeeRepository.save(employee);
 		return this.employeeRepository.save(employee);
 	}
 	

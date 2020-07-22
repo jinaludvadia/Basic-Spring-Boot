@@ -61,7 +61,7 @@ class EmployeeRepositoryTest {
 	
 	@Test
 	public void getEmployeeTest() {
-		Employee employee = new Employee("Jinal","fcf","jinal@gmail.com");
+		Employee employee = new Employee("Jinal","udv","jinal@gmail.com");
 		//repository.save(employee);
 		Employee employee2 = repository.findByFirstName("Jinal");
         assertNotNull(employee2);
